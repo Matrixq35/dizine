@@ -6,18 +6,21 @@
     <title>VITS WebApp</title>
     <style>
 /* Сброс отступов */
+/* Сброс отступов */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+/* Адаптация для Telegram WebApp */
 html, body {
     width: 100%;
     height: 100%;
     font-family: Arial, sans-serif;
     background-color: #000;
     color: #fff;
+    overflow: hidden; /* Убираем прокрутку в WebApp */
 }
 
 /* Контейнер приложения */
@@ -58,15 +61,13 @@ main {
     padding: 20px;
     width: 100%;
     position: relative;
-    overflow: hidden;
 }
 
 /* Все экраны */
 .screen {
     display: none; /* По умолчанию все экраны скрыты */
     width: 100%;
-    height: 100%;
-    background-color: #000;
+    height: calc(100vh - 60px); /* Учитываем высоту навигации */
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -86,7 +87,7 @@ main {
     opacity: 1;
 }
 
-/* Главная страница */
+/* Главный экран */
 #home {
     text-align: center;
     width: 100%;
@@ -136,7 +137,12 @@ main {
     bottom: 0;
     left: 0;
     width: 100%;
-    z-index: 10; /* Гарантирует, что панель навигации всегда сверху */
+    z-index: 10;
+}
+
+/* Telegram WebApp: скрываем навигацию, если WebApp открыт в full-screen */
+.tg-fullscreen .bottom-nav {
+    display: none;
 }
 
 /* Кнопки навигации */
@@ -149,18 +155,17 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 5%;
+    width: 25%;
 }
 
 /* Подсветка активного раздела */
 .bottom-nav button.active {
-    color: #d02828;
+    color: #d60000;
 }
 
 /* Иконки */
 .nav-icon img {
     width: 100px;
-    height: auto;
 }
 
     </style>
