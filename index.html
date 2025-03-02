@@ -22,7 +22,8 @@
             font-family: Arial, sans-serif;
             background-color: #000;
             color: #fff;
-            overflow: hidden; /* Полностью убираем скроллы */
+            overflow: hidden;
+            /* Полностью убираем скроллы */
         }
 
         /* Контейнер приложения */
@@ -40,18 +41,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-        }
-
-        /* Кнопка "Подключить кошелёк" */
-        .connect-wallet-btn {
-            background-color: #d60000;
-            color: #fff;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
         }
 
         /* Основная область (контейнер для переключаемых экранов) */
@@ -183,6 +172,33 @@
         #tasks {
             padding: 20px;
         }
+
+/* Контейнер кнопки */
+.connect-wallet-btn {
+    background-color: #d60000;
+    color: #fff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    
+    /* Выравнивание текста и иконки */
+    display: flex;
+    align-items: center; /* Центрирование по вертикали */
+    justify-content: center; /* Центрирование по горизонтали */
+
+    /* Задаем фиксированные размеры кнопки */
+    width: 290px; /* Можно менять по необходимости */
+    height: 50px;
+}
+
+/* Иконка внутри кнопки */
+.connect-wallet-img {
+    width: 70px; /* Размер иконки */
+    display: block; /* Убираем лишние отступы */
+}
     </style>
 </head>
 
@@ -190,7 +206,7 @@
     <div class="app-container">
         <!-- Верхняя панель -->
         <header class="app-header">
-            <button class="connect-wallet-btn">Подключить кошелёк</button>
+            <button class="connect-wallet-btn"><img src="https://i.ibb.co/mrxg53bX/1.png" class="connect-wallet-img">Подключить кошелёк</button>
         </header>
 
         <!-- Основной блок с переключаемыми экранами -->
