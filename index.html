@@ -5,7 +5,8 @@
     <meta charset="UTF-8" />
     <title>VITS WebApp</title>
     <!-- Критически важно для адаптации под мобильные устройства -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
     <style>
         /* Сброс отступов */
         * {
@@ -25,6 +26,16 @@
             overflow: hidden;
             /* Полностью убираем скроллы */
         }
+
+        /* Убираем синий фон на мобильных устройствах */
+        .connect-wallet-btn,
+        .bottom-nav button,
+        .main-button {
+            outline: none; /* Убираем стандартный контур */
+            -webkit-tap-highlight-color: transparent; /* Убираем синий фон при нажатии на мобилке */
+            user-select: none; /* Запрещает выделение текста */
+        }
+
 
         /* Контейнер приложения */
         .app-container {
@@ -93,11 +104,12 @@
             max-width: 320px;
             /* но не больше 250px */
             height: auto;
+            transform: scale(1.5); /* Увеличиваем кристалл на 50% */
         }
 
         /* Текст с количеством VITS */
         .vits-value {
-            font-size: 2rem;
+            font-size: 3rem;
             /* 2 rem = ~32px */
             font-weight: bold;
         }
@@ -108,7 +120,7 @@
             color: #fff;
             border: none;
             padding: 14px 24px;
-            border-radius: 6px;
+            border-radius: 25px;
             font-size: 1rem;
             cursor: pointer;
             width: 80%;
@@ -124,6 +136,7 @@
 
         /* Нижняя навигационная панель */
         .bottom-nav {
+            
             background-color: #1c1c1c;
             display: flex;
             justify-content: space-around;
@@ -145,8 +158,8 @@
         .bottom-nav button {
             background: none;
             border: none;
-            color: #fff;
-            font-size: 0.9rem;
+            color: #6f6f6f;
+            font-size: 14px;
             cursor: pointer;
             display: flex;
             flex-direction: column;
@@ -160,7 +173,7 @@
         }
 
         /* Иконки в навигации (адаптивные) */
-        .nav-icon img {
+        .nav-icon img  {
             width: 70px;
             height: auto;
             margin-bottom: 5px;
@@ -178,7 +191,7 @@
     background-color: #d60000;
     color: #fff;
     border: none;
-    padding: 12px 24px;
+    padding: 12px 24px; /* Одинаковые отступы слева и справа */
     border-radius: 25px;
     cursor: pointer;
     font-size: 16px;
@@ -188,16 +201,23 @@
     display: flex;
     align-items: center; /* Центрирование по вертикали */
     justify-content: center; /* Центрирование по горизонтали */
-
-    /* Задаем фиксированные размеры кнопки */
-    width: 290px; /* Можно менять по необходимости */
-    height: 50px;
+    gap: 0; /* Убираем доп. отступ */
+    
+    /* Минимальная ширина для симметрии */
+    min-width: 260px;
+    height: 30px;
+    margin-top: 25px;
 }
 
-/* Иконка внутри кнопки */
+/* Исправление отступа у иконки */
 .connect-wallet-img {
-    width: 70px; /* Размер иконки */
-    display: block; /* Убираем лишние отступы */
+    width: 50px; /* Размер иконки */
+    height: auto;
+    flex-shrink: 0; /* Предотвращает сжатие иконки */
+    margin: 0; /* Убираем внешние отступы */
+    padding: 0; /* Убираем внутренние отступы */
+    vertical-align: middle; /* Убираем выравнивание по базовой линии текста */
+    display: inline-block; /* Убираем лишнее пространство */
 }
     </style>
 </head>
@@ -206,7 +226,7 @@
     <div class="app-container">
         <!-- Верхняя панель -->
         <header class="app-header">
-            <button class="connect-wallet-btn"><img src="https://i.ibb.co/mrxg53bX/1.png" class="connect-wallet-img">Подключить кошелёк</button>
+            <button class="connect-wallet-btn"><img src="https://i.ibb.co/mrxg53bX/1.png" class="connect-wallet-img">Подключить кошелек</button>
         </header>
 
         <!-- Основной блок с переключаемыми экранами -->
@@ -242,25 +262,26 @@
         <nav class="bottom-nav">
             <button data-target="home" class="active">
                 <div class="nav-icon">
-                    <img src="https://i.ibb.co/FR0zw4r/image.png" alt="Home">
+                    <img src="https://i.ibb.co/Fkv6rqk9/2.png" data-default="https://i.ibb.co/Fkv6rqk9/2.png" data-active="https://i.ibb.co/Q7xG3q0W/image.png" alt="Home">
                 </div>
                 Главная
             </button>
             <button data-target="top">
                 <div class="nav-icon">
-                    <img src="https://i.ibb.co/1fpDfwCc/image.png" alt="Top">
+                    <img src="https://i.ibb.co/nM6F4cxG/3.png" data-default="https://i.ibb.co/nM6F4cxG/3.png" data-active="https://i.ibb.co/6JyQFjRP/2.png" alt="Top">
                 </div>
                 Топ
             </button>
             <button data-target="friends">
                 <div class="nav-icon">
-                    <img src="https://i.ibb.co/jPQ0D7ht/image.png" alt="Friends">
+                    <img src="https://i.ibb.co/whSbNtjp/image.png" data-default="https://i.ibb.co/whSbNtjp/image.png" data-active="https://i.ibb.co/YTNJ8gLB/image.png"
+                        alt="Friends">
                 </div>
                 Друзья
             </button>
             <button data-target="tasks">
                 <div class="nav-icon">
-                    <img src="https://i.ibb.co/dsYDWNsr/image.png" alt="Tasks">
+                    <img src="https://i.ibb.co/Qj38fFGN/image.png" data-default="https://i.ibb.co/Qj38fFGN/image.png" data-active="https://i.ibb.co/q39nwzd3/image.png" alt="Tasks">
                 </div>
                 Задания
             </button>
@@ -277,34 +298,52 @@
         //   }
         // });
 
-        const navButtons = document.querySelectorAll('.bottom-nav button');
-        const screens = document.querySelectorAll('.screen');
+    const navButtons = document.querySelectorAll('.bottom-nav button');
+    const screens = document.querySelectorAll('.screen');
 
-        navButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                // Удаляем класс active у всех кнопок
-                navButtons.forEach(btn => btn.classList.remove('active'));
-                button.classList.add('active');
+    // Функция переключения активного экрана и иконки
+    function setActiveScreen(button) {
+        // Удаляем класс active у всех кнопок
+        navButtons.forEach(btn => {
+            btn.classList.remove('active');
 
-                // Определяем, какой экран нужно показать
-                const targetId = button.getAttribute('data-target');
-
-                // Скрываем все экраны без задержки
-                screens.forEach(screen => {
-                    screen.classList.remove('active');
-                    screen.style.opacity = "0";
-                    screen.style.display = "none"; // Полностью скрываем
-                });
-
-                // Показываем новый экран с плавным появлением
-                const activeScreen = document.getElementById(targetId);
-                activeScreen.style.display = "flex";
-                setTimeout(() => {
-                    activeScreen.classList.add('active');
-                    activeScreen.style.opacity = "1";
-                }, 50);
-            });
+            // Возвращаем обычные иконки
+            const img = btn.querySelector('.nav-icon img');
+            img.src = img.dataset.default;
         });
+
+        // Добавляем класс active к нажатой кнопке
+        button.classList.add('active');
+
+        // Меняем иконку на активную
+        const img = button.querySelector('.nav-icon img');
+        img.src = img.dataset.active;
+
+        // Определяем, какой экран нужно показать
+        const targetId = button.getAttribute('data-target');
+
+        // Скрываем все экраны
+        screens.forEach(screen => screen.classList.remove('active'));
+
+        // Показываем нужный экран
+        document.getElementById(targetId).classList.add('active');
+    }
+
+    // Устанавливаем "Главную" кнопку активной при загрузке страницы
+    document.addEventListener("DOMContentLoaded", () => {
+        const defaultButton = document.querySelector('.bottom-nav button.active');
+        if (defaultButton) {
+            setActiveScreen(defaultButton); // Активируем иконку главного экрана
+        }
+    });
+
+    // Добавляем обработчики событий для кнопок навигации
+    navButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            setActiveScreen(button);
+        });
+    });
+
     </script>
 </body>
 
