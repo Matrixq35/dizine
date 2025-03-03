@@ -107,11 +107,17 @@
             transform: scale(1.5); /* Увеличиваем кристалл на 50% */
         }
 
-        /* Текст с количеством VITS */
+        /* Баланс */
         .vits-value {
-            font-size: 3rem;
-            /* 2 rem = ~32px */
-            font-weight: bold;
+            font-size: 5rem; /* Увеличили в 2 раза */
+            font-weight: normal;
+        }
+
+
+        /* Текст "VITS" */
+        .vits-label {
+            font-size: 2rem; /* В 2 раза меньше баланса */
+            font-weight: normal;
         }
 
         /* Кнопки */
@@ -218,6 +224,15 @@
     vertical-align: middle; /* Убираем выравнивание по базовой линии текста */
     display: inline-block; /* Убираем лишнее пространство */
 }
+
+/* Контейнер баланса */
+.vits-container {
+    display: flex;
+    align-items: center; /* Выравниваем по горизонтали */
+    justify-content: center; /* Центрируем всё */
+    gap: 8px; /* Расстояние между балансом и "VITS" */
+}
+
     </style>
 </head>
 
@@ -233,7 +248,10 @@
             <!-- Главная (Home) -->
             <section id="home" class="screen active">
                 <img src="https://i.ibb.co/0pzS8p36/image.png" alt="Diamond" class="diamond-icon">
-                <div class="vits-value">16,155 VITS</div>
+                <div class="vits-container">
+                    <span class="vits-value">16,155</span>
+                    <span class="vits-label">VITS</span>
+                </div>
                 <button class="main-button">Подпишись на канал</button>
                 <button class="main-button">Проверь свои награды</button>
             </section>
