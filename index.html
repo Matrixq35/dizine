@@ -8,14 +8,13 @@
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
     <style>
-        /* Сброс отступов */
+        /* Базовый сброс */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        /* Настройка фоновых цветов и базовых стилей */
         html,
         body {
             width: 100%;
@@ -24,51 +23,66 @@
             background-color: #000;
             color: #fff;
             overflow: hidden;
-            /* Полностью убираем скроллы */
         }
 
-        /* Убираем синий фон на мобильных устройствах */
+        /* Эффекты при тапе */
         .connect-wallet-btn,
         .bottom-nav button,
         .main-button {
-            outline: none; /* Убираем стандартный контур */
-            -webkit-tap-highlight-color: transparent; /* Убираем синий фон при нажатии на мобилке */
-            user-select: none; /* Запрещает выделение текста */
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
 
-
-        /* Контейнер приложения */
         .app-container {
             display: flex;
             flex-direction: column;
-            /* высота на всю видимую область экрана */
             min-height: 100vh;
             width: 100%;
         }
 
         /* Верхняя панель */
         .app-header {
-            padding: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 100px;
         }
 
-        /* Основная область (контейнер для переключаемых экранов) */
+        .connect-wallet-btn {
+            background-color: #d60000;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 260px;
+            height: 30px;
+        }
+
+        .connect-wallet-img {
+            width: 50px;
+            height: auto;
+            margin-right: 10px;
+        }
+
+        /* Основная область */
         main {
             flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
             width: 100%;
             position: relative;
         }
 
-        /* Общие стили для всех "экранов" (секций) */
         .screen {
             display: none;
-            /* По умолчанию скрыты */
             width: 100%;
             height: 100%;
             text-align: center;
@@ -78,71 +92,111 @@
             position: absolute;
             top: 0;
             left: 0;
-            /* Плавная анимация прозрачности */
             opacity: 0;
             transition: opacity 0.3s ease-in-out;
         }
 
-        /* Активный экран */
         .screen.active {
             display: flex;
             opacity: 1;
             z-index: 1;
         }
 
-        /* Главный экран (пример) */
+        /* Главный экран */
         #home {
-            gap: 20px;
-            padding-bottom: 60px;
-            /* Чтобы контент не уезжал за навигацию */
+            width: 100%;
+            height: calc(100vh - 100px - 95px);
         }
 
-        /* Иконка бриллианта (адаптивная) */
+        .home-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-grow: 1;
+            padding-bottom: 171px;
+        }
+
         .diamond-icon {
             width: 50vw;
-            /* 40% ширины экрана (пример) */
             max-width: 320px;
-            /* но не больше 250px */
             height: auto;
-            transform: scale(1.5); /* Увеличиваем кристалл на 50% */
+            transform: scale(1.5);
         }
 
-        /* Баланс */
+        .vits-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
         .vits-value {
-            font-size: 4rem; /* Увеличили в 2 раза */
+            font-size: 4rem;
             font-weight: bold;
         }
 
-
-        /* Текст "VITS" */
         .vits-label {
-            font-size: 25px; /* В 2 раза меньше баланса */
-            font-weight: normal;
+            font-size: 25px;
         }
 
-        /* Кнопки */
+        /* Контейнер для кнопок */
+        .main-button-container {
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Переделанные кнопки: все элементы в одной строке по центру */
         .main-button {
-            background-color: #333;
+            background-color: #191919;
             color: #fff;
-            border: none;
-            padding: 14px 24px;
-            border-radius: 25px;
+            border: 1px solid #6f6f6f;
+            padding: 14px 20px;
+            border-radius: 10px;
             font-size: 1rem;
             cursor: pointer;
             width: 80%;
-            max-width: 300px;
-            text-align: center;
+            max-width: 500px;
+            height: 60px;
             transition: background 0.3s;
-            margin: 10px 0;
+            display: flex;
+            justify-content: space-between; /* Левая группа и правая иконка по краям */
+            align-items: center;
         }
 
         .main-button:hover {
-            background-color: #444;
+            background-color: #2a2a2a;
         }
 
-        /* Нижняя навигационная панель */
+        .main-button-icon {
+            width: 60px;
+            height: auto;
+            flex-shrink: 0;
+        }
+
+        /* Стили для левой группы (иконка и текст) */
+        .left-group {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Расстояние между иконкой и текстом */
+        }
+
+        /* Текст кнопки */
+        .button-text {
+            font-size: 1rem;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        /* Нижняя навигация */
         .bottom-nav {
-            
             background-color: #1c1c1c;
             display: flex;
             justify-content: space-around;
@@ -153,14 +207,9 @@
             left: 0;
             width: 100%;
             z-index: 10;
+            height: 94.67px;
         }
 
-        /* Telegram WebApp: скрываем навигацию, если WebApp открыт в full-screen (опционально) */
-        .tg-fullscreen .bottom-nav {
-            display: none;
-        }
-
-        /* Кнопки навигации */
         .bottom-nav button {
             background: none;
             border: none;
@@ -173,66 +222,25 @@
             width: 25%;
         }
 
-        /* Подсветка активного раздела */
         .bottom-nav button.active {
             color: #d60000;
         }
 
-        /* Иконки в навигации (адаптивные) */
-        .nav-icon img  {
+        .nav-icon img {
             width: 50px;
             height: auto;
         }
 
-        /* Пример стилей для других экранов */
-        #top,
-        #friends,
-        #tasks {
-            padding: 20px;
+        #rotated-image {
+            transform: rotate(-90deg);
+            transform-origin: center;
         }
 
-/* Контейнер кнопки */
-.connect-wallet-btn {
-    background-color: #d60000;
-    color: #fff;
-    border: none;
-    padding: 12px 24px; /* Одинаковые отступы слева и справа */
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    
-    /* Выравнивание текста и иконки */
-    display: flex;
-    align-items: center; /* Центрирование по вертикали */
-    justify-content: center; /* Центрирование по горизонтали */
-    gap: 0; /* Убираем доп. отступ */
-    
-    /* Минимальная ширина для симметрии */
-    min-width: 260px;
-    height: 30px;
-    margin-top: 25px;
-}
-
-/* Исправление отступа у иконки */
-.connect-wallet-img {
-    width: 50px; /* Размер иконки */
-    height: auto;
-    flex-shrink: 0; /* Предотвращает сжатие иконки */
-    margin: 0; /* Убираем внешние отступы */
-    padding: 0; /* Убираем внутренние отступы */
-    vertical-align: middle; /* Убираем выравнивание по базовой линии текста */
-    display: inline-block; /* Убираем лишнее пространство */
-}
-
-/* Контейнер баланса */
-.vits-container {
-    display: flex;
-    align-items: center; /* Выравниваем по горизонтали */
-    justify-content: center; /* Центрируем всё */
-    gap: 8px; /* Расстояние между балансом и "VITS" */
-}
-
+        #rotated-image {
+            width: 40px;
+            height: auto;
+            flex-shrink: 0;
+        }
     </style>
 </head>
 
@@ -240,35 +248,51 @@
     <div class="app-container">
         <!-- Верхняя панель -->
         <header class="app-header">
-            <button class="connect-wallet-btn"><img src="https://i.ibb.co/mrxg53bX/1.png" class="connect-wallet-img">Подключить кошелек</button>
+            <button class="connect-wallet-btn">
+                <img src="https://i.ibb.co/mrxg53bX/1.png" class="connect-wallet-img" alt="Wallet">
+                Подключить кошелек
+            </button>
         </header>
 
         <!-- Основной блок с переключаемыми экранами -->
         <main>
-            <!-- Главная (Home) -->
+            <!-- Главный (Home) экран -->
             <section id="home" class="screen active">
-                <img src="https://i.ibb.co/0pzS8p36/image.png" alt="Diamond" class="diamond-icon">
-                <div class="vits-container">
-                    <span class="vits-value">16,155</span>
-                    <span class="vits-label">VITS</span>
+                <div class="home-content">
+                    <img src="https://i.ibb.co/0pzS8p36/image.png" alt="Diamond" class="diamond-icon">
+                    <div class="vits-container">
+                        <span class="vits-value">16,155</span>
+                        <span class="vits-label">VITS</span>
+                    </div>
                 </div>
-                <button class="main-button">Подпишись на канал</button>
-                <button class="main-button">Проверь свои награды</button>
+                <div class="main-button-container">
+                    <!-- Кнопка с иконками и текстом, расположенными в одном ряду по центру -->
+                    <button class="main-button">
+                        <div class="left-group">
+                            <img src="https://i.ibb.co/WrLK0dm/image.png" class="main-button-icon" alt="Left Icon">
+                            <span class="button-text">Подпишись на канал</span>
+                        </div>
+                        <img src="https://i.ibb.co/Csm5z1D6/2.png" id="rotated-image" alt="Right Icon">
+                    </button>
+                    <button class="main-button">
+                        <div class="left-group">
+                            <img src="https://i.ibb.co/spkt642V/image.png" class="main-button-icon" alt="Left Icon">
+                            <span class="button-text">Проверьте свои награды</span>
+                        </div>
+                        <img src="https://i.ibb.co/Csm5z1D6/2.png" id="rotated-image" alt="Right Icon">
+                    </button>
+                </div>
             </section>
 
-            <!-- Топ -->
+            <!-- Другие экраны (Топ, Друзья, Задания) -->
             <section id="top" class="screen">
                 <h1>Топ</h1>
                 <p>Содержимое экрана "Топ"</p>
             </section>
-
-            <!-- Друзья -->
             <section id="friends" class="screen">
                 <h1>Друзья</h1>
                 <p>Содержимое экрана "Друзья"</p>
             </section>
-
-            <!-- Задания -->
             <section id="tasks" class="screen">
                 <h1>Задания</h1>
                 <p>Содержимое экрана "Задания"</p>
@@ -279,26 +303,29 @@
         <nav class="bottom-nav">
             <button data-target="home" class="active">
                 <div class="nav-icon">
-                    <img src="https://i.ibb.co/Fkv6rqk9/2.png" data-default="https://i.ibb.co/Fkv6rqk9/2.png" data-active="https://i.ibb.co/Q7xG3q0W/image.png" alt="Home">
+                    <img src="https://i.ibb.co/Fkv6rqk9/2.png" data-default="https://i.ibb.co/Fkv6rqk9/2.png"
+                        data-active="https://i.ibb.co/Q7xG3q0W/image.png" alt="Home">
                 </div>
                 Главная
             </button>
             <button data-target="top">
                 <div class="nav-icon">
-                    <img src="https://i.ibb.co/nM6F4cxG/3.png" data-default="https://i.ibb.co/nM6F4cxG/3.png" data-active="https://i.ibb.co/6JyQFjRP/2.png" alt="Top">
+                    <img src="https://i.ibb.co/nM6F4cxG/3.png" data-default="https://i.ibb.co/nM6F4cxG/3.png"
+                        data-active="https://i.ibb.co/6JyQFjRP/2.png" alt="Top">
                 </div>
                 Топ
             </button>
             <button data-target="friends">
                 <div class="nav-icon">
-                    <img src="https://i.ibb.co/whSbNtjp/image.png" data-default="https://i.ibb.co/whSbNtjp/image.png" data-active="https://i.ibb.co/YTNJ8gLB/image.png"
-                        alt="Friends">
+                    <img src="https://i.ibb.co/whSbNtjp/image.png" data-default="https://i.ibb.co/whSbNtjp/image.png"
+                        data-active="https://i.ibb.co/YTNJ8gLB/image.png" alt="Friends">
                 </div>
                 Друзья
             </button>
             <button data-target="tasks">
                 <div class="nav-icon">
-                    <img src="https://i.ibb.co/Qj38fFGN/image.png" data-default="https://i.ibb.co/Qj38fFGN/image.png" data-active="https://i.ibb.co/q39nwzd3/image.png" alt="Tasks">
+                    <img src="https://i.ibb.co/Qj38fFGN/image.png" data-default="https://i.ibb.co/Qj38fFGN/image.png"
+                        data-active="https://i.ibb.co/q39nwzd3/image.png" alt="Tasks">
                 </div>
                 Задания
             </button>
@@ -306,61 +333,37 @@
     </div>
 
     <script>
-        // Если используете Telegram WebApp SDK:
-        // window.addEventListener('DOMContentLoaded', () => {
-        //   if (window.Telegram && window.Telegram.WebApp) {
-        //     window.Telegram.WebApp.ready();
-        //     // Расширяем WebApp на весь экран (опционально)
-        //     window.Telegram.WebApp.expand();
-        //   }
-        // });
+        const navButtons = document.querySelectorAll('.bottom-nav button');
+        const screens = document.querySelectorAll('.screen');
 
-    const navButtons = document.querySelectorAll('.bottom-nav button');
-    const screens = document.querySelectorAll('.screen');
+        function setActiveScreen(button) {
+            navButtons.forEach(btn => {
+                btn.classList.remove('active');
+                const img = btn.querySelector('.nav-icon img');
+                img.src = img.dataset.default;
+            });
 
-    // Функция переключения активного экрана и иконки
-    function setActiveScreen(button) {
-        // Удаляем класс active у всех кнопок
-        navButtons.forEach(btn => {
-            btn.classList.remove('active');
+            button.classList.add('active');
+            const img = button.querySelector('.nav-icon img');
+            img.src = img.dataset.active;
 
-            // Возвращаем обычные иконки
-            const img = btn.querySelector('.nav-icon img');
-            img.src = img.dataset.default;
-        });
-
-        // Добавляем класс active к нажатой кнопке
-        button.classList.add('active');
-
-        // Меняем иконку на активную
-        const img = button.querySelector('.nav-icon img');
-        img.src = img.dataset.active;
-
-        // Определяем, какой экран нужно показать
-        const targetId = button.getAttribute('data-target');
-
-        // Скрываем все экраны
-        screens.forEach(screen => screen.classList.remove('active'));
-
-        // Показываем нужный экран
-        document.getElementById(targetId).classList.add('active');
-    }
-
-    // Устанавливаем "Главную" кнопку активной при загрузке страницы
-    document.addEventListener("DOMContentLoaded", () => {
-        const defaultButton = document.querySelector('.bottom-nav button.active');
-        if (defaultButton) {
-            setActiveScreen(defaultButton); // Активируем иконку главного экрана
+            const targetId = button.getAttribute('data-target');
+            screens.forEach(screen => screen.classList.remove('active'));
+            document.getElementById(targetId).classList.add('active');
         }
-    });
 
-    // Добавляем обработчики событий для кнопок навигации
-    navButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            setActiveScreen(button);
+        document.addEventListener("DOMContentLoaded", () => {
+            const defaultButton = document.querySelector('.bottom-nav button.active');
+            if (defaultButton) {
+                setActiveScreen(defaultButton);
+            }
         });
-    });
 
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                setActiveScreen(button);
+            });
+        });
     </script>
 </body>
 
