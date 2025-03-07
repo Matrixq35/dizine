@@ -100,9 +100,9 @@
         }
 
         .connect-wallet-img {
-            width: 50px;
+            width: 25px;
             height: auto;
-            margin-right: 10px;
+            margin-right: 5px;
         }
 
         /* Экран Home занимает всю высоту за вычетом нижней навигации.
@@ -396,6 +396,17 @@
             height: auto;
             flex-shrink: 0;
         }
+
+        /* Новый блок для центрирования содержимого вкладок */
+        .tasks-content-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            overflow-y: auto;
+        }
+
     </style>
 </head>
 
@@ -408,7 +419,7 @@
                 <!-- Шапка только на главном экране -->
                 <div class="home-header">
                     <button class="connect-wallet-btn">
-                        <img src="https://i.ibb.co/mrxg53bX/1.png" class="connect-wallet-img" alt="Wallet">
+                        <img src="https://i.ibb.co/5g8DpygD/image.png" class="connect-wallet-img" alt="Wallet">
                         Подключить кошелек
                     </button>
                 </div>
@@ -464,6 +475,7 @@
                         <button class="tab-button active-tab" data-tab="our-tasks">Наши задания</button>
                         <button class="tab-button" data-tab="partners">Партнеры</button>
                     </div>
+                    <div class="tasks-content-wrapper">
                     <!-- Содержимое вкладок -->
                     <div class="tasks-content">
                         <!-- Панель "Наши задания" -->
@@ -528,8 +540,19 @@
                                     </div>
                                     <button class="task-open-btn">Открыть</button>
                                 </div>
+                                <div class="task-item">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s"
+                                        alt="Telegram" class="task-icon">
+                                    <div class="task-info">
+                                        <p class="task-title">Партнёрское задание 1</p>
+                                        <p class="task-reward">+1,500 VITS</p>
+                                    </div>
+                                    <button class="task-open-btn">Открыть</button>
+                                </div>
+                                
                             </div>
                         </div>
+                      </div>
                     </div> <!-- /.tasks-content -->
                 </div> <!-- /.tasks-body -->
             </section>
