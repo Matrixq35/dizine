@@ -22,8 +22,6 @@
             font-family: Arial, sans-serif;
             background-color: #000;
             color: #fff;
-            /* Если контент помещается, оставляем hidden.
-         Если нужно прокручивать длинные списки во всех экранах, меняем на auto. */
             overflow: hidden;
         }
 
@@ -107,7 +105,8 @@
             margin-right: 10px;
         }
 
-        /* Экран Home занимает всю высоту за вычетом нижней навигации (header включён внутри экрана) */
+        /* Экран Home занимает всю высоту за вычетом нижней навигации.
+       Шапка включена внутрь экрана */
         #home {
             width: 100%;
             height: calc(100vh - 90px);
@@ -201,8 +200,8 @@
             white-space: nowrap;
         }
 
-        /* ------------------------ TOP / FRIENDS / TASKS ------------------------ */
-        /* Эти экраны не имеют верхней панели, поэтому высота = (100vh - нижняя навигация) */
+        /* ------------------------ TOP / FRIENDS ------------------------ */
+        /* Эти экраны не имеют верхней панели */
         #top,
         #friends {
             width: 100%;
@@ -210,22 +209,22 @@
             overflow-y: auto;
         }
 
-        /* ---------- TASKS (Задания) ---------- */
-        /* Для экрана задач задаём flex-колонку */
+        /* ------------------------ TASKS (Задания) ------------------------ */
+        /* Экран заданий занимает всю высоту за вычетом нижней навигации */
         #tasks {
             width: 100%;
             height: calc(100vh - 90px);
             overflow-y: auto;
             display: flex;
             flex-direction: column;
+            padding: 20px;
         }
 
-        /* Заголовок, который можно позиционировать отдельно */
+        /* Заголовок заданий – можно регулировать отступы отдельно */
         .tasks-header {
             text-align: left;
             padding: 20px;
             margin-bottom: 0;
-            /* Управляйте отступом по своему усмотрению */
         }
 
         .tasks-header h1 {
@@ -238,37 +237,35 @@
             color: #ccc;
         }
 
-        /* Новый контейнер для центрирования вкладок и содержимого */
+        /* Контейнер для вкладок и содержимого.
+       Он располагается ниже заголовка и центрируется по горизонтали */
         .tasks-body {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            /* Отступ сверху можно регулировать, если нужно */
-            padding: 0 20px;
-        }
-
-        /* Вкладки – меню фиксировано */
-        .tasks-tabs {
-            display: flex;
             width: 100%;
             max-width: 500px;
+            margin: 0 auto;
+            /* Здесь элементы располагаются по потоку, чтобы контент расширялся вниз */
+        }
+
+        /* Вкладки – меню фиксировано по горизонтали, размеры кнопок сохраняются */
+        .tasks-tabs {
+            display: flex;
+            margin-bottom: 20px;
             background-color: #1c1c1c;
             border-radius: 10px;
-            margin-bottom: 20px;
         }
 
         .tasks-tabs button {
             flex: 1;
-            /* Неактивное состояние: фон чёрный, текст белый */
-            background: #191919;
+            background: #000;
+            /* Неактивная: черный фон */
             border: none;
             color: #fff;
+            /* Неактивная: белый текст */
             font-size: 16px;
             padding: 12px 0;
             cursor: pointer;
             transition: background 0.3s, color 0.3s;
+            width: 185px;
             border-radius: 10px;
         }
 
@@ -276,19 +273,19 @@
             margin-right: 2px;
         }
 
-        /* Активное состояние: фон белый, текст чёрный */
+        /* Активная вкладка: белый фон, черный текст */
         .tasks-tabs button.active-tab {
             background: #fff;
             color: #000;
         }
 
-        /* Содержимое вкладок */
+        /* Содержимое вкладок – теперь без фиксированной высоты.
+       Панели переключаются через display, блоки занимают свою высоту по контенту */
         .tasks-content {
             width: 100%;
-            max-width: 500px;
-            padding: 20px;
             background-color: #1c1c1c;
             border-radius: 12px;
+            padding: 20px;
         }
 
         .tab-panel {
@@ -411,7 +408,6 @@
                         Подключить кошелек
                     </button>
                 </div>
-
                 <!-- Контент главной страницы -->
                 <div class="home-content">
                     <img src="https://i.ibb.co/0pzS8p36/image.png" alt="Diamond" class="diamond-icon">
@@ -457,9 +453,9 @@
                     <h1>ЗАДАНИЯ</h1>
                     <p>ВЫПОЛНЯЙТЕ ЗАДАНИЯ ЗА ВОЗНАГРАЖДЕНИЯ</p>
                 </div>
-                <!-- Новый контейнер для центрирования вкладок и содержимого -->
+                <!-- Контейнер для вкладок и содержимого -->
                 <div class="tasks-body">
-                    <!-- Вкладки фиксированы и не двигаются -->
+                    <!-- Вкладки фиксированы -->
                     <div class="tasks-tabs">
                         <button class="tab-button active-tab" data-tab="our-tasks">Наши задания</button>
                         <button class="tab-button" data-tab="partners">Партнеры</button>
