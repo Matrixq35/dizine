@@ -76,15 +76,13 @@
         }
 
         /* ------------------------ HOME ------------------------ */
-        /* Шапка для главного экрана */
+        /* Шапка только на главном экране */
         .home-header {
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100px;
             width: 100%;
-            /* При желании можно добавить фон:
-         background-color: #000; */
         }
 
         .connect-wallet-btn {
@@ -109,18 +107,17 @@
             margin-right: 10px;
         }
 
-        /* Экран Home занимает (100vh - высота нижней навигации) */
+        /* Экран Home занимает всю высоту за вычетом нижней навигации (header включён внутри экрана) */
         #home {
             width: 100%;
             height: calc(100vh - 90px);
             overflow-y: auto;
-            /* Разрешаем прокрутку, если нужно */
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        /* Контейнер контента на главной */
+        /* Контент главной страницы */
         .home-content {
             display: flex;
             flex-direction: column;
@@ -205,21 +202,30 @@
         }
 
         /* ------------------------ TOP / FRIENDS / TASKS ------------------------ */
-        /* Эти экраны не имеют верхней панели, поэтому высота = (100vh - нижняя панель) */
+        /* Эти экраны не имеют верхней панели, поэтому высота = (100vh - нижняя навигация) */
         #top,
-        #friends,
-        #tasks {
+        #friends {
             width: 100%;
             height: calc(100vh - 90px);
             overflow-y: auto;
         }
 
         /* ---------- TASKS (Задания) ---------- */
+        /* Для экрана задач задаём flex-колонку */
+        #tasks {
+            width: 100%;
+            height: calc(100vh - 90px);
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Заголовок, который можно позиционировать отдельно */
         .tasks-header {
             text-align: left;
             padding: 20px;
-            margin-bottom: 0px;
-            position: absolute;
+            margin-bottom: 0;
+            /* Управляйте отступом по своему усмотрению */
         }
 
         .tasks-header h1 {
@@ -232,23 +238,37 @@
             color: #ccc;
         }
 
+        /* Новый контейнер для центрирования вкладок и содержимого */
+        .tasks-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            /* Отступ сверху можно регулировать, если нужно */
+            padding: 0 20px;
+        }
+
+        /* Вкладки – меню фиксировано */
         .tasks-tabs {
             display: flex;
-            margin: 0 20px;
+            width: 100%;
+            max-width: 500px;
             background-color: #1c1c1c;
             border-radius: 10px;
+            margin-bottom: 20px;
         }
 
         .tasks-tabs button {
             flex: 1;
-            background: #1c1c1c;
+            /* Неактивное состояние: фон чёрный, текст белый */
+            background: #191919;
             border: none;
-            color: #000000;
+            color: #fff;
             font-size: 16px;
             padding: 12px 0;
             cursor: pointer;
-            transition: background 0.3s;
-            width: 185px;
+            transition: background 0.3s, color 0.3s;
             border-radius: 10px;
         }
 
@@ -256,15 +276,19 @@
             margin-right: 2px;
         }
 
+        /* Активное состояние: фон белый, текст чёрный */
         .tasks-tabs button.active-tab {
-            background: #ffffff;
+            background: #fff;
+            color: #000;
         }
 
+        /* Содержимое вкладок */
         .tasks-content {
+            width: 100%;
+            max-width: 500px;
             padding: 20px;
             background-color: #1c1c1c;
             border-radius: 12px;
-            margin-top: 25px;
         }
 
         .tab-panel {
@@ -288,7 +312,6 @@
             padding: 10px;
             gap: 10px;
             border-bottom: solid #6f6f6f 1px;
-            
         }
 
         .task-icon {
@@ -427,74 +450,79 @@
                 <p>Содержимое экрана "Друзья"</p>
             </section>
 
-            <!------------------------------------------------ ЗАДАНИЯ --------------------------------------------------------------------->
+            <!-- ЗАДАНИЯ -->
             <section id="tasks" class="screen">
-                <!-- Заголовок и подзаголовок -->
+                <!-- Заголовок и подзаголовок (расположенные вверху) -->
                 <div class="tasks-header">
                     <h1>ЗАДАНИЯ</h1>
                     <p>ВЫПОЛНЯЙТЕ ЗАДАНИЯ ЗА ВОЗНАГРАЖДЕНИЯ</p>
                 </div>
-                <!-- Вкладки (Наши задания / Партнеры) -->
-                <div class="tasks-tabs">
-                    <button class="tab-button active-tab" data-tab="our-tasks">Наши задания</button>
-                    <button class="tab-button" data-tab="partners">Партнеры</button>
-                </div>
-                <!-- Содержимое вкладок -->
-                <div class="tasks-content">
-                    <!-- Панель "Наши задания" -->
-                    <div id="our-tasks" class="tab-panel active">
-                        <div class="task-list">
-                            <!-- Пример одного задания -->
-                            <div class="task-item">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s" alt="Telegram" class="task-icon">
-                                <div class="task-info">
-                                    <p class="task-title">Подпишись на канал</p>
-                                    <p class="task-reward">+1,000 VITS</p>
+                <!-- Новый контейнер для центрирования вкладок и содержимого -->
+                <div class="tasks-body">
+                    <!-- Вкладки фиксированы и не двигаются -->
+                    <div class="tasks-tabs">
+                        <button class="tab-button active-tab" data-tab="our-tasks">Наши задания</button>
+                        <button class="tab-button" data-tab="partners">Партнеры</button>
+                    </div>
+                    <!-- Содержимое вкладок -->
+                    <div class="tasks-content">
+                        <!-- Панель "Наши задания" -->
+                        <div id="our-tasks" class="tab-panel active">
+                            <div class="task-list">
+                                <div class="task-item">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s"
+                                        alt="Telegram" class="task-icon">
+                                    <div class="task-info">
+                                        <p class="task-title">Подпишись на канал</p>
+                                        <p class="task-reward">+1,000 VITS</p>
+                                    </div>
+                                    <button class="task-open-btn">Открыть</button>
                                 </div>
-                                <button class="task-open-btn">Открыть</button>
-                            </div>
-                            <!-- Скопируйте блок .task-item столько раз, сколько нужно -->
-                            <div class="task-item">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s" alt="Telegram" class="task-icon">
-                                <div class="task-info">
-                                    <p class="task-title">Подпишись на канал</p>
-                                    <p class="task-reward">+2,000 VITS</p>
+                                <div class="task-item">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s"
+                                        alt="Telegram" class="task-icon">
+                                    <div class="task-info">
+                                        <p class="task-title">Подпишись на канал</p>
+                                        <p class="task-reward">+2,000 VITS</p>
+                                    </div>
+                                    <button class="task-open-btn">Открыть</button>
                                 </div>
-                                <button class="task-open-btn">Открыть</button>
-                            </div>
-                            <div class="task-item">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s" alt="Telegram" class="task-icon">
-                                <div class="task-info">
-                                    <p class="task-title">Подпишись на канал</p>
-                                    <p class="task-reward">+3,000 VITS</p>
+                                <div class="task-item">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s"
+                                        alt="Telegram" class="task-icon">
+                                    <div class="task-info">
+                                        <p class="task-title">Подпишись на канал</p>
+                                        <p class="task-reward">+3,000 VITS</p>
+                                    </div>
+                                    <button class="task-open-btn">Открыть</button>
                                 </div>
-                                <button class="task-open-btn">Открыть</button>
                             </div>
                         </div>
-                    </div>
-                    <!-- Панель "Партнеры" -->
-                    <div id="partners" class="tab-panel">
-                        <div class="task-list">
-                            <!-- Тот же формат заданий -->
-                            <div class="task-item">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s" alt="Telegram" class="task-icon">
-                                <div class="task-info">
-                                    <p class="task-title">Партнёрское задание 1</p>
-                                    <p class="task-reward">+1,500 VITS</p>
+                        <!-- Панель "Партнеры" -->
+                        <div id="partners" class="tab-panel">
+                            <div class="task-list">
+                                <div class="task-item">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s"
+                                        alt="Telegram" class="task-icon">
+                                    <div class="task-info">
+                                        <p class="task-title">Партнёрское задание 1</p>
+                                        <p class="task-reward">+1,500 VITS</p>
+                                    </div>
+                                    <button class="task-open-btn">Открыть</button>
                                 </div>
-                                <button class="task-open-btn">Открыть</button>
-                            </div>
-                            <div class="task-item">
-                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s" alt="Telegram" class="task-icon">
-                                <div class="task-info">
-                                    <p class="task-title">Партнёрское задание 2</p>
-                                    <p class="task-reward">+2,500 VITS</p>
+                                <div class="task-item">
+                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s"
+                                        alt="Telegram" class="task-icon">
+                                    <div class="task-info">
+                                        <p class="task-title">Партнёрское задание 2</p>
+                                        <p class="task-reward">+2,500 VITS</p>
+                                    </div>
+                                    <button class="task-open-btn">Открыть</button>
                                 </div>
-                                <button class="task-open-btn">Открыть</button>
                             </div>
                         </div>
-                    </div>
-                </div>
+                    </div> <!-- /.tasks-content -->
+                </div> <!-- /.tasks-body -->
             </section>
         </main>
 
@@ -537,25 +565,18 @@
         const screens = document.querySelectorAll('.screen');
 
         function setActiveScreen(button) {
-            // Сбрасываем активное состояние кнопок
             navButtons.forEach(btn => {
                 btn.classList.remove('active');
                 const img = btn.querySelector('.nav-icon img');
                 img.src = img.dataset.default;
             });
 
-            // Активируем нажатую кнопку
             button.classList.add('active');
             const img = button.querySelector('.nav-icon img');
             img.src = img.dataset.active;
 
-            // Определяем, какой экран нужно показать
             const targetId = button.getAttribute('data-target');
-
-            // Скрываем все экраны
             screens.forEach(screen => screen.classList.remove('active'));
-
-            // Показываем нужный экран
             document.getElementById(targetId).classList.add('active');
         }
 
@@ -578,16 +599,11 @@
 
         tabButtons.forEach(btn => {
             btn.addEventListener('click', () => {
-                // Снимаем active-tab со всех кнопок
                 tabButtons.forEach(b => b.classList.remove('active-tab'));
-                // Активируем нажатую
                 btn.classList.add('active-tab');
 
-                // Определяем, какую панель показывать
                 const tabId = btn.dataset.tab;
-                // Скрываем все панели
                 tabPanels.forEach(panel => panel.classList.remove('active'));
-                // Показываем нужную
                 document.getElementById(tabId).classList.add('active');
             });
         });
