@@ -106,7 +106,7 @@
         }
 
         /* Экран Home занимает всю высоту за вычетом нижней навигации.
-       Шапка включена внутрь экрана */
+           Шапка включена внутрь экрана */
         #home {
             width: 100%;
             height: calc(100vh - 90px);
@@ -201,7 +201,7 @@
         }
 
         /* ------------------------ TOP / FRIENDS ------------------------ */
-        /* Эти экраны не имеют верхней панели */
+        /* Оставляем базовые стили, чтобы #friends тоже не сломался */
         #top,
         #friends {
             width: 100%;
@@ -209,18 +209,69 @@
             overflow-y: auto;
         }
 
-        /* ------------------------ TASKS (Задания) ------------------------ */
-        /* Экран заданий занимает всю высоту за вычетом нижней навигации */
+        /* ------------------------ ДРУЗЬЯ (FRIENDS) ------------------------ */
+        #friends .friends-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px auto;
+            max-width: 600px;
+            padding: 20px 0;
+        }
+
+        #friends .friends-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        #friends .friends-subtitle {
+            font-size: 14px;
+            color: #d60000;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        #friends .friends-list {
+            width: 100%;
+        }
+
+        #friends .friend-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            font-size: 16px;
+            border-bottom: 1px solid #6f6f6f;
+        }
+
+        #friends .friend-item span {
+            color: #fff;
+        }
+
+        #friends .referral-button {
+            background-color: #191919;
+            color: #fff;
+            border: 1px solid #d60000;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        /* ------------------------ ЗАДАНИЯ (TASKS) ------------------------ */
         #tasks {
             width: 100%;
             height: calc(100vh - 90px);
             display: flex;
             flex-direction: column;
             padding: 20px;
-            overflow: hidden; /* чтобы скрыть лишнее, переместим прокрутку внутрь */
+            overflow: hidden;
         }
 
-        /* Заголовок заданий – можно регулировать отступы отдельно */
         .tasks-header {
             text-align: left;
             padding: 20px;
@@ -237,15 +288,12 @@
             color: #ccc;
         }
 
-        /* Контейнер для вкладок и содержимого.
-       Он располагается ниже заголовка и центрируется по горизонтали */
         .tasks-body {
             flex: 1;
             display: flex;
             flex-direction: column;
         }
 
-        /* Вкладки – меню фиксировано по горизонтали, размеры кнопок сохраняются */
         .tasks-tabs {
             display: flex;
             margin-bottom: 20px;
@@ -256,10 +304,8 @@
         .tasks-tabs button {
             flex: 1;
             background: #1c1c1c;
-            /* Неактивная: черный фон */
             border: none;
             color: #fff;
-            /* Неактивная: белый текст */
             font-size: 16px;
             padding: 12px 0;
             cursor: pointer;
@@ -272,14 +318,11 @@
             margin-right: 2px;
         }
 
-        /* Активная вкладка: белый фон, черный текст */
         .tasks-tabs button.active-tab {
             background: #fff;
             color: #000;
         }
 
-        /* Содержимое вкладок – теперь без фиксированной высоты.
-       Панели переключаются через display, блоки занимают свою высоту по контенту */
         .tasks-content {
             height: auto;
             width: 100%;
@@ -312,14 +355,9 @@
         }
 
         .task-icon {
-            display: block;
-            margin: 0;
-            padding: 0;
             width: 50px;
             flex-shrink: 0;
             border-radius: 10px;
-            padding: 0;
-
         }
 
         .task-info {
@@ -353,7 +391,13 @@
             font-weight: bold;
         }
 
-        /* ---------- НИЖНЯЯ НАВИГАЦИЯ ---------- */
+        .tasks-content-wrapper {
+            flex: 1;
+            overflow-y: auto;
+            display: block;
+        }
+
+        /* ============ НИЖНЯЯ НАВИГАЦИЯ ============ */
         .bottom-nav {
             background-color: #1c1c1c;
             display: flex;
@@ -397,15 +441,92 @@
             flex-shrink: 0;
         }
 
-        /* Новый блок для центрирования содержимого вкладок */
-        .tasks-content-wrapper {
-            flex: 1;
-            overflow-y: auto;
-            /* Убираем выравнивание по центру, чтобы контент начинался сверху */
-            display: block;
+        /* ============ СТИЛИ ДЛЯ ЭКРАНА #top ============ */
+        /* Переопределяем и дополняем стили, чтобы в точности повторить макет */
+        #top {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            /* Унаследованный overflow-y: auto сохраняем, чтобы список скроллился */
+            padding: 20px 0;
         }
 
+        #top .top-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            /* можно увеличить при необходимости */
+            margin: 0 auto;
+        }
 
+        #top .trophy-icon img {
+            width: 60px;
+            height: auto;
+        }
+
+        #top .top-title {
+            font-size: 24px;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+
+        #top .user-rank {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        #top .user-rank .score {
+            font-weight: bold;
+            color: #ffffff;
+            margin-right: 5px;
+        }
+
+        #top .user-rank .username {
+            color: #ffffff;
+        }
+
+        #top .leaderboard {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        #top .leaderboard-item {
+            background-color: #191919;
+            padding: 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            font-size: 16px;
+        }
+
+        #top .leaderboard-item span {
+            color: #ffffff;
+        }
+
+        /* Бордюр для выделенных позиций (#1 и #3 как на скриншоте) */
+        #top .leaderboard-item.highlight {
+            border: 2px solid #fbd41c;
+        }
+
+        #top .rank {
+            margin-right: 10px;
+        }
+
+        #top .nickname {
+            flex-grow: 1;
+            text-align: left;
+        }
+
+        #top .score-id {
+            margin-left: 10px;
+            color: #b3b3b3;
+            font-size: 14px;
+        }
     </style>
 </head>
 
@@ -448,16 +569,129 @@
                 </div>
             </section>
 
-            <!-- Топ -->
+            <!-- ЭКРАН Топ (заменённый код) -->
             <section id="top" class="screen">
-                <h1>Топ</h1>
-                <p>Содержимое экрана "Топ"</p>
+                <div class="top-container">
+                    <!-- Иконка кубка -->
+                    <div class="trophy-icon">
+                        <!-- Замените ссылку при необходимости на любую иконку трофея -->
+                        <img src="https://i.ibb.co/CtnW8Vc/image.png" alt="Trophy">
+                    </div>
+                    <h2 class="top-title">Топ игроков</h2>
+
+                    <!-- Текущий пользователь и его очки -->
+                    <div class="user-rank">
+                        <span class="score">32,249.</span>
+                        <span class="username">Kolyan #70623</span>
+                    </div>
+
+                    <!-- Список лидеров -->
+                    <div class="leaderboard">
+                        <div class="leaderboard-item highlight">
+                            <span class="rank">1.</span>
+                            <span class="nickname">Sigma_Moment</span>
+                            <span class="score-id">#980500</span>
+                        </div>
+                        <div class="leaderboard-item">
+                            <span class="rank">2.</span>
+                            <span class="nickname">Gef</span>
+                            <span class="score-id">#86451</span>
+                        </div>
+                        <div class="leaderboard-item highlight">
+                            <span class="rank">3.</span>
+                            <span class="nickname">LaLaLaLa</span>
+                            <span class="score-id">#791432</span>
+                        </div>
+                        <div class="leaderboard-item">
+                            <span class="rank">4.</span>
+                            <span class="nickname">Rufi</span>
+                            <span class="score-id">#701404</span>
+                        </div>
+                        <div class="leaderboard-item">
+                            <span class="rank">5.</span>
+                            <span class="nickname">Hary</span>
+                            <span class="score-id">#70104</span>
+                        </div>
+                        <div class="leaderboard-item">
+                            <span class="rank">6.</span>
+                            <span class="nickname">Durov</span>
+                            <span class="score-id">#581361</span>
+                        </div>
+                        <div class="leaderboard-item">
+                            <span class="rank">7.</span>
+                            <span class="nickname">Smas</span>
+                            <span class="score-id">#621405</span>
+                        </div>
+                        <div class="leaderboard-item">
+                            <span class="rank">8.</span>
+                            <span class="nickname">Light</span>
+                            <span class="score-id">#351890</span>
+                        </div>
+                        <div class="leaderboard-item">
+                            <span class="rank">9.</span>
+                            <span class="nickname">Userhak</span>
+                            <span class="score-id">#331002</span>
+                        </div>
+                        <div class="leaderboard-item">
+                            <span class="rank">10.</span>
+                            <span class="nickname">Kastom</span>
+                            <span class="score-id">#272923</span>
+                        </div>
+                    </div>
+                </div>
             </section>
 
-            <!-- Друзья -->
+            <!-- Друзья (Обновлённый экран) -->
             <section id="friends" class="screen">
-                <h1>Друзья</h1>
-                <p>Содержимое экрана "Друзья"</p>
+                <div class="friends-container">
+                    <h2 class="friends-title">ЗОВИ ДРУЗЕЙ</h2>
+                    <p class="friends-subtitle">
+                        СКИДЫВАЙ ДРУГУ ССЫЛКУ-ПРИГЛАШЕНИЕ И ПОЛУЧИ 20% ЕГО МОНЕТ
+                    </p>
+                    <div class="friends-list">
+                        <div class="friend-item">
+                            <span>1. Sigma_Moment</span>
+                            <span>+216 VITS</span>
+                        </div>
+                        <div class="friend-item">
+                            <span>2. Gef</span>
+                            <span>+225 VITS</span>
+                        </div>
+                        <div class="friend-item">
+                            <span>3. LaLaLaLa</span>
+                            <span>+189 VITS</span>
+                        </div>
+                        <div class="friend-item">
+                            <span>4. Rufi</span>
+                            <span>+210 VITS</span>
+                        </div>
+                        <div class="friend-item">
+                            <span>5. Hary</span>
+                            <span>+225 VITS</span>
+                        </div>
+                        <div class="friend-item">
+                            <span>6. Durov</span>
+                            <span>+225 VITS</span>
+                        </div>
+                        <div class="friend-item">
+                            <span>7. Smas</span>
+                            <span>+204 VITS</span>
+                        </div>
+                        <div class="friend-item">
+                            <span>8. Light</span>
+                            <span>+225 VITS</span>
+                        </div>
+                        <div class="friend-item">
+                            <span>9. Userhak</span>
+                            <span>+225 VITS</span>
+                        </div>
+                        <div class="friend-item">
+                            <span>10. Kustom</span>
+                            <span>+225 VITS</span>
+                        </div>
+                    </div>
+                    <button class="referral-button">Реферальная ссылка</button>
+                </div>
             </section>
 
             <!-- ЗАДАНИЯ -->
@@ -475,83 +709,79 @@
                         <button class="tab-button" data-tab="partners">Партнеры</button>
                     </div>
                     <div class="tasks-content-wrapper">
-                    <!-- Содержимое вкладок -->    
-                      <div class="tasks-content">
-                        <!-- Панель "Наши задания" -->
-                        <div id="our-tasks" class="tab-panel active">
-                            <div class="task-list">
-                                <div class="task-item">
-                                    <img src="https://i.ibb.co/21WrWXSt/image.png"
-                                        alt="Telegram" class="task-icon">
-                                    <div class="task-info">
-                                        <p class="task-title">Подпишись на канал</p>
-                                        <p class="task-reward">+1,000 VITS</p>
+                        <!-- Содержимое вкладок -->
+                        <div class="tasks-content">
+                            <!-- Панель "Наши задания" -->
+                            <div id="our-tasks" class="tab-panel active">
+                                <div class="task-list">
+                                    <div class="task-item">
+                                        <img src="https://i.ibb.co/21WrWXSt/image.png" alt="Telegram" class="task-icon">
+                                        <div class="task-info">
+                                            <p class="task-title">Подпишись на канал</p>
+                                            <p class="task-reward">+1,000 VITS</p>
+                                        </div>
+                                        <button class="task-open-btn">Открыть</button>
                                     </div>
-                                    <button class="task-open-btn">Открыть</button>
-                                </div>
-                                <div class="task-item">
-                                    <img src="https://i.ibb.co/ycCrp4jC/image.png"
-                                        alt="Telegram" class="task-icon">
-                                    <div class="task-info">
-                                        <p class="task-title">Подпишись на канал</p>
-                                        <p class="task-reward">+2,000 VITS</p>
+                                    <div class="task-item">
+                                        <img src="https://i.ibb.co/ycCrp4jC/image.png" alt="Telegram" class="task-icon">
+                                        <div class="task-info">
+                                            <p class="task-title">Подпишись на канал</p>
+                                            <p class="task-reward">+2,000 VITS</p>
+                                        </div>
+                                        <button class="task-open-btn">Открыть</button>
                                     </div>
-                                    <button class="task-open-btn">Открыть</button>
-                                </div>
-                                <div class="task-item">
-                                    <img src="https://i.ibb.co/1JLGFS6v/image.png"
-                                        alt="Telegram" class="task-icon">
-                                    <div class="task-info">
-                                        <p class="task-title">Пригласи 10 человек</p>
-                                        <p class="task-reward">+3,000 VITS</p>
+                                    <div class="task-item">
+                                        <img src="https://i.ibb.co/1JLGFS6v/image.png" alt="Telegram" class="task-icon">
+                                        <div class="task-info">
+                                            <p class="task-title">Пригласи 10 человек</p>
+                                            <p class="task-reward">+3,000 VITS</p>
+                                        </div>
+                                        <button class="task-open-btn">Открыть</button>
                                     </div>
-                                    <button class="task-open-btn">Открыть</button>
+                                    <div class="task-item">
+                                        <img src="https://i.ibb.co/TDxwq2rS/image.png" alt="Telegram" class="task-icon">
+                                        <div class="task-info">
+                                            <p class="task-title">Подключи кошелек</p>
+                                            <p class="task-reward">+3,000 VITS</p>
+                                        </div>
+                                        <button class="task-open-btn">Открыть</button>
+                                    </div>
                                 </div>
+                            </div>
+                            <!-- Панель "Партнеры" -->
+                            <div id="partners" class="tab-panel">
+                                <div class="task-list">
+                                    <div class="task-item">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s"
+                                            alt="Telegram" class="task-icon">
+                                        <div class="task-info">
+                                            <p class="task-title">Партнёрское задание 1</p>
+                                            <p class="task-reward">+1,500 VITS</p>
+                                        </div>
+                                        <button class="task-open-btn">Открыть</button>
+                                    </div>
+                                    <div class="task-item">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s"
+                                            alt="Telegram" class="task-icon">
+                                        <div class="task-info">
+                                            <p class="task-title">Партнёрское задание 2</p>
+                                            <p class="task-reward">+2,500 VITS</p>
+                                        </div>
+                                        <button class="task-open-btn">Открыть</button>
+                                    </div>
+                                    <div class="task-item">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s"
+                                            alt="Telegram" class="task-icon">
+                                        <div class="task-info">
+                                            <p class="task-title">Партнёрское задание 1</p>
+                                            <p class="task-reward">+1,500 VITS</p>
+                                        </div>
+                                        <button class="task-open-btn">Открыть</button>
+                                    </div>
 
-                                <div class="task-item">
-                                    <img src="https://i.ibb.co/TDxwq2rS/image.png" alt="Telegram" class="task-icon">
-                                    <div class="task-info">
-                                        <p class="task-title">Подключи кошелек</p>
-                                        <p class="task-reward">+3,000 VITS</p>
-                                    </div>
-                                    <button class="task-open-btn">Открыть</button>
                                 </div>
                             </div>
                         </div>
-                        <!-- Панель "Партнеры" -->
-                        <div id="partners" class="tab-panel">
-                            <div class="task-list">
-                                <div class="task-item">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s"
-                                        alt="Telegram" class="task-icon">
-                                    <div class="task-info">
-                                        <p class="task-title">Партнёрское задание 1</p>
-                                        <p class="task-reward">+1,500 VITS</p>
-                                    </div>
-                                    <button class="task-open-btn">Открыть</button>
-                                </div>
-                                <div class="task-item">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s"
-                                        alt="Telegram" class="task-icon">
-                                    <div class="task-info">
-                                        <p class="task-title">Партнёрское задание 2</p>
-                                        <p class="task-reward">+2,500 VITS</p>
-                                    </div>
-                                    <button class="task-open-btn">Открыть</button>
-                                </div>
-                                <div class="task-item">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s"
-                                        alt="Telegram" class="task-icon">
-                                    <div class="task-info">
-                                        <p class="task-title">Партнёрское задание 1</p>
-                                        <p class="task-reward">+1,500 VITS</p>
-                                    </div>
-                                    <button class="task-open-btn">Открыть</button>
-                                </div>
-                                
-                            </div>
-                        </div>
-                      </div>
                     </div> <!-- /.tasks-content -->
                 </div> <!-- /.tasks-body -->
             </section>
