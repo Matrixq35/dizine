@@ -214,10 +214,10 @@
         #tasks {
             width: 100%;
             height: calc(100vh - 90px);
-            overflow-y: auto;
             display: flex;
             flex-direction: column;
             padding: 20px;
+            overflow: hidden; /* чтобы скрыть лишнее, переместим прокрутку внутрь */
         }
 
         /* Заголовок заданий – можно регулировать отступы отдельно */
@@ -240,10 +240,9 @@
         /* Контейнер для вкладок и содержимого.
        Он располагается ниже заголовка и центрируется по горизонтали */
         .tasks-body {
-            width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-            /* Здесь элементы располагаются по потоку, чтобы контент расширялся вниз */
+            flex: 1;
+            display: flex;
+            flex-direction: column;
         }
 
         /* Вкладки – меню фиксировано по горизонтали, размеры кнопок сохраняются */
@@ -282,6 +281,7 @@
         /* Содержимое вкладок – теперь без фиксированной высоты.
        Панели переключаются через display, блоки занимают свою высоту по контенту */
         .tasks-content {
+            height: auto;
             width: 100%;
             background-color: #1c1c1c;
             border-radius: 12px;
@@ -400,12 +400,11 @@
         /* Новый блок для центрирования содержимого вкладок */
         .tasks-content-wrapper {
             flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
             overflow-y: auto;
+            /* Убираем выравнивание по центру, чтобы контент начинался сверху */
+            display: block;
         }
+
 
     </style>
 </head>
@@ -476,8 +475,8 @@
                         <button class="tab-button" data-tab="partners">Партнеры</button>
                     </div>
                     <div class="tasks-content-wrapper">
-                    <!-- Содержимое вкладок -->
-                    <div class="tasks-content">
+                    <!-- Содержимое вкладок -->    
+                      <div class="tasks-content">
                         <!-- Панель "Наши задания" -->
                         <div id="our-tasks" class="tab-panel active">
                             <div class="task-list">
