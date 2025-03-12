@@ -4,9 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <title>VITS WebApp</title>
-    <!-- Критически важно для адаптации под мобильные устройства -->
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <style>
         /* Базовый сброс */
         * {
@@ -14,154 +12,70 @@
             padding: 0;
             box-sizing: border-box;
         }
-
-        html,
-        body {
-            width: 100%;
-            min-height: 100%;
-            font-family: Arial, sans-serif;
-            background-color: #000;
-            color: #fff;
-            overflow: hidden;
-        }
-
-        /* Эффекты при тапе */
-        .connect-wallet-btn,
-        .bottom-nav button,
-        .main-button {
-            outline: none;
-            -webkit-tap-highlight-color: transparent;
-            user-select: none;
-        }
-
-        .app-container {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            width: 100%;
-        }
-
-        /* Основная область, содержащая экраны */
-        main {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            position: relative;
-        }
-
-        /* Экраны */
+        /*---------------------- Скрытие всех экранов ----------------- */
         .screen {
             display: none;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
         }
-
         .screen.active {
+            display: block;
+        }
+
+        /* --------------------- HOME SCREEN ------------------------- */
+        
+        .home-body {
             display: flex;
-            opacity: 1;
-            z-index: 1;
-        }
-
-        /* ------------------------ HOME ------------------------ */
-        /* Шапка только на главном экране */
-        .home-header {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100px;
-            width: 100%;
-        }
-
-        .connect-wallet-btn {
-            background-color: #d60000;
-            color: #fff;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 260px;
-            height: 40px;
-        }
-
-        .connect-wallet-img {
-            width: 25px;
-            height: auto;
-            margin-right: 5px;
-        }
-
-        /* Экран Home занимает всю высоту за вычетом нижней навигации.
-           Шапка включена внутрь экрана */
-        #home {
-            width: 100%;
+            flex-direction: column;
+            justify-content: space-between;
+            background-color: #000000;
             height: calc(100vh - 90px);
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 20px;
         }
 
-        /* Контент главной страницы */
-        .home-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            flex-grow: 1;
-            padding-bottom: 171px;
-        }
-
-        .diamond-icon {
-            width: 50vw;
-            max-width: 320px;
+        .crystal-img {
+            display: block;
+            max-width: 60%;
             height: auto;
-            transform: scale(1.5);
+            margin: auto;
         }
 
-        .vits-container {
+        .balance-container {
             display: flex;
-            align-items: center;
+            flex-direction: row;
             justify-content: center;
-            gap: 8px;
+            max-width: 100%;
         }
 
-        .vits-value {
+        .balance-number,
+        .balance-text-vits {
             font-size: 4rem;
-            font-weight: bold;
+            color: #fff;
         }
 
-        .vits-label {
-            font-size: 25px;
+        .container-wallet-button {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
         }
 
-        .main-button-container {
-            position: absolute;
-            bottom: 40px;
-            width: 100%;
+        .connect-wallet-button {
+            width: 50vw;
+            height: 30px;
+        }
+
+        .button-container-bottom {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 15px;
+            width: 100%;
+            gap: 10px;
         }
 
-        .main-button {
+        .button-bottom {
+            display: flex; /* Делаем кнопку флекс-контейнером */
+            align-items: center; /* Выравниваем элементы по центру */
+            justify-content: space-between; /* Распределяем элементы: текст слева, иконка справа */
+            height: 45px;
             background-color: #191919;
             color: #fff;
             border: 1px solid #6f6f6f;
@@ -169,17 +83,7 @@
             border-radius: 10px;
             font-size: 1rem;
             cursor: pointer;
-            width: 90%;
-            max-width: 500px;
-            height: 50px;
-            transition: background 0.3s;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .main-button:hover {
-            background-color: #2a2a2a;
+            width: 100%;
         }
 
         .main-button-icon {
@@ -194,229 +98,34 @@
             gap: 5px;
         }
 
-        .button-text {
-            font-size: 1rem;
-            text-align: left;
-            white-space: nowrap;
-        }
-
-        /* ------------------------ TOP / FRIENDS ------------------------ */
-        /* Оставляем базовые стили, чтобы #friends тоже не сломался */
-        #top,
-        #friends {
-            width: 100%;
-            height: calc(100vh - 90px);
-            overflow-y: auto;
-        }
-
-        /* ------------------------ ДРУЗЬЯ (FRIENDS) ------------------------ */
-        #friends .friends-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 20px auto;
-            max-width: 600px;
-            padding: 20px 0;
-        }
-
-        #friends .friends-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: #fff;
-            margin-bottom: 10px;
-        }
-
-        #friends .friends-subtitle {
-            font-size: 14px;
-            color: #d60000;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-            text-align: center;
-        }
-
-        #friends .friends-list {
-            width: 100%;
-        }
-
-        #friends .friend-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            font-size: 16px;
-            border-bottom: 1px solid #6f6f6f;
-        }
-
-        #friends .friend-item span {
-            color: #fff;
-        }
-
-        #friends .referral-button {
-            background-color: #191919;
-            color: #fff;
-            border: 1px solid #d60000;
-            padding: 12px 24px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-
-        /* ------------------------ ЗАДАНИЯ (TASKS) ------------------------ */
-        #tasks {
-            width: 100%;
-            height: calc(100vh - 90px);
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            overflow: hidden;
-        }
-
-        .tasks-header {
-            text-align: left;
-            padding: 20px;
-            margin-bottom: 0;
-        }
-
-        .tasks-header h1 {
-            font-size: 3rem;
-            margin-bottom: 12px;
-        }
-
-        .tasks-header p {
-            font-size: 1.5rem;
-            color: #ccc;
-        }
-
-        .tasks-body {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .tasks-tabs {
-            display: flex;
-            margin-bottom: 20px;
-            background-color: #1c1c1c;
-            border-radius: 10px;
-        }
-
-        .tasks-tabs button {
-            flex: 1;
-            background: #1c1c1c;
-            border: none;
-            color: #fff;
-            font-size: 16px;
-            padding: 12px 0;
-            cursor: pointer;
-            transition: background 0.3s, color 0.3s;
-            width: 185px;
-            border-radius: 15px;
-        }
-
-        .tasks-tabs button:not(:last-child) {
-            margin-right: 2px;
-        }
-
-        .tasks-tabs button.active-tab {
-            background: #fff;
-            color: #000;
-        }
-
-        .tasks-content {
-            height: auto;
-            width: 100%;
-            background-color: #1c1c1c;
-            border-radius: 12px;
-            padding: 20px;
-        }
-
-        .tab-panel {
-            display: none;
-        }
-
-        .tab-panel.active {
-            display: block;
-        }
-
-        .task-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .task-item {
-            background: #1c1c1c;
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            gap: 10px;
-            border-bottom: solid #6f6f6f 1px;
-        }
-
-        .task-icon {
+        .rotated-image {
+            transform: rotate(-90deg);
+            transform-origin: center;
             width: 50px;
+            height: auto;
             flex-shrink: 0;
-            border-radius: 10px;
         }
 
-        .task-info {
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: center;
-            flex-grow: 1;
-            text-align: left;
-        }
 
-        .task-title {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-
-        .task-reward {
-            font-size: 14px;
-            color: #ccc;
-        }
-
-        .task-open-btn {
-            background: #fff;
-            color: #000;
-            border: none;
-            border-radius: 20px;
-            padding: 6px 12px;
-            font-size: 14px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .tasks-content-wrapper {
-            flex: 1;
-            overflow-y: auto;
-            display: block;
-        }
-
-        /* ============ НИЖНЯЯ НАВИГАЦИЯ ============ */
+        /* --------------------- Нижняя навигация --------------------- */
         .bottom-nav {
             background-color: #1c1c1c;
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 12px 0;
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            z-index: 10;
             height: 90px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            z-index: 10;
         }
 
         .bottom-nav button {
             background: none;
             border: none;
             color: #6f6f6f;
-            font-size: 14px;
+            font-size: 0.875rem;
             cursor: pointer;
             display: flex;
             flex-direction: column;
@@ -432,362 +141,59 @@
             width: 45px;
             height: auto;
         }
-
-        #rotated-image {
-            transform: rotate(-90deg);
-            transform-origin: center;
-            width: 50px;
-            height: auto;
-            flex-shrink: 0;
-        }
-
-        /* ============ СТИЛИ ДЛЯ ЭКРАНА #top ============ */
-        /* Переопределяем и дополняем стили, чтобы в точности повторить макет */
-        #top {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: flex-start;
-            /* Унаследованный overflow-y: auto сохраняем, чтобы список скроллился */
-            padding: 20px 0;
-        }
-
-        #top .top-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-            max-width: 400px;
-            /* можно увеличить при необходимости */
-            margin: 0 auto;
-        }
-
-        #top .trophy-icon img {
-            width: 60px;
-            height: auto;
-        }
-
-        #top .top-title {
-            font-size: 24px;
-            margin: 10px 0;
-            font-weight: bold;
-        }
-
-        #top .user-rank {
-            font-size: 18px;
-            margin-bottom: 20px;
-        }
-
-        #top .user-rank .score {
-            font-weight: bold;
-            color: #ffffff;
-            margin-right: 5px;
-        }
-
-        #top .user-rank .username {
-            color: #ffffff;
-        }
-
-        #top .leaderboard {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        #top .leaderboard-item {
-            background-color: #191919;
-            padding: 10px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            font-size: 16px;
-        }
-
-        #top .leaderboard-item span {
-            color: #ffffff;
-        }
-
-        /* Бордюр для выделенных позиций (#1 и #3 как на скриншоте) */
-        #top .leaderboard-item.highlight {
-            border: 2px solid #fbd41c;
-        }
-
-        #top .rank {
-            margin-right: 10px;
-        }
-
-        #top .nickname {
-            flex-grow: 1;
-            text-align: left;
-        }
-
-        #top .score-id {
-            margin-left: 10px;
-            color: #b3b3b3;
-            font-size: 14px;
-        }
     </style>
 </head>
 
 <body>
     <div class="app-container">
-        <!-- Основной блок с переключаемыми экранами -->
-        <main>
-            <!-- Главный (Home) экран -->
+            <!------------------------------- HOME SCREEN ---------------------------------------->
             <section id="home" class="screen active">
-                <!-- Шапка только на главном экране -->
-                <div class="home-header">
-                    <button class="connect-wallet-btn">
-                        <img src="https://i.ibb.co/5g8DpygD/image.png" class="connect-wallet-img" alt="Wallet">
+                <div class="home-body">
+                    <div class="container-wallet-button">
+                        <button class="connect-wallet-button">
                         Подключить кошелек
-                    </button>
-                </div>
-                <!-- Контент главной страницы -->
-                <div class="home-content">
-                    <img src="https://i.ibb.co/0pzS8p36/image.png" alt="Diamond" class="diamond-icon">
-                    <div class="vits-container">
-                        <span class="vits-value">16,155</span>
-                        <span class="vits-label">VITS</span>
+                        </button>
                     </div>
-                </div>
-                <div class="main-button-container">
-                    <button class="main-button">
-                        <div class="left-group">
-                            <img src="https://i.ibb.co/WrLK0dm/image.png" class="main-button-icon" alt="Left Icon">
-                            <span class="button-text">Подпишись на канал</span>
-                        </div>
-                        <img src="https://i.ibb.co/Csm5z1D6/2.png" id="rotated-image" alt="Right Icon">
-                    </button>
-                    <button class="main-button">
-                        <div class="left-group">
-                            <img src="https://i.ibb.co/spkt642V/image.png" class="main-button-icon" alt="Left Icon">
-                            <span class="button-text">Проверьте свои награды</span>
-                        </div>
-                        <img src="https://i.ibb.co/Csm5z1D6/2.png" id="rotated-image" alt="Right Icon">
-                    </button>
+                        <div class="img-balance-container">
+                            <div class="crystal-container">
+                                <img src="https://i.ibb.co/n8Cwh9cP/image.png" class="crystal-img">
+                            </div>    
+                            <div class="balance-container">
+                                <div class="balance-number">16,155</div>
+                                <div class="balance-text-vits">VITS</div>
+                            </div>
+                        </div>    
+                    <div class="button-container-bottom">
+                        <button class="button-bottom">
+                            <div class="left-group">
+                                <img src="https://i.ibb.co/WrLK0dm/image.png" class="main-button-icon" alt="Left Icon">
+                                <span class="button-text">Подпишись на канал</span>
+                            </div>
+                            <img src="https://i.ibb.co/Csm5z1D6/2.png" class="rotated-image" alt="Right Icon">
+                        </button>
+                        <button class="button-bottom">
+                            <div class="left-group">
+                                <img src="https://i.ibb.co/spkt642V/image.png" class="main-button-icon" alt="Left Icon">
+                                <span class="button-text">Проверьте свои награды</span>
+                            </div>
+                            <img src="https://i.ibb.co/Csm5z1D6/2.png" class="rotated-image" alt="Right Icon">
+                        </button>
+                    </div>
+
                 </div>
             </section>
-
-            <!-- ЭКРАН Топ (заменённый код) -->
+            <!-- TOP SCREEN -->
             <section id="top" class="screen">
-                <div class="top-container">
-                    <!-- Иконка кубка -->
-                    <div class="trophy-icon">
-                        <!-- Замените ссылку при необходимости на любую иконку трофея -->
-                        <img src="https://i.ibb.co/CtnW8Vc/image.png" alt="Trophy">
-                    </div>
-                    <h2 class="top-title">Топ игроков</h2>
-
-                    <!-- Текущий пользователь и его очки -->
-                    <div class="user-rank">
-                        <span class="score">32,249.</span>
-                        <span class="username">Kolyan #70623</span>
-                    </div>
-
-                    <!-- Список лидеров -->
-                    <div class="leaderboard">
-                        <div class="leaderboard-item highlight">
-                            <span class="rank">1.</span>
-                            <span class="nickname">Sigma_Moment</span>
-                            <span class="score-id">#980500</span>
-                        </div>
-                        <div class="leaderboard-item">
-                            <span class="rank">2.</span>
-                            <span class="nickname">Gef</span>
-                            <span class="score-id">#86451</span>
-                        </div>
-                        <div class="leaderboard-item highlight">
-                            <span class="rank">3.</span>
-                            <span class="nickname">LaLaLaLa</span>
-                            <span class="score-id">#791432</span>
-                        </div>
-                        <div class="leaderboard-item">
-                            <span class="rank">4.</span>
-                            <span class="nickname">Rufi</span>
-                            <span class="score-id">#701404</span>
-                        </div>
-                        <div class="leaderboard-item">
-                            <span class="rank">5.</span>
-                            <span class="nickname">Hary</span>
-                            <span class="score-id">#70104</span>
-                        </div>
-                        <div class="leaderboard-item">
-                            <span class="rank">6.</span>
-                            <span class="nickname">Durov</span>
-                            <span class="score-id">#581361</span>
-                        </div>
-                        <div class="leaderboard-item">
-                            <span class="rank">7.</span>
-                            <span class="nickname">Smas</span>
-                            <span class="score-id">#621405</span>
-                        </div>
-                        <div class="leaderboard-item">
-                            <span class="rank">8.</span>
-                            <span class="nickname">Light</span>
-                            <span class="score-id">#351890</span>
-                        </div>
-                        <div class="leaderboard-item">
-                            <span class="rank">9.</span>
-                            <span class="nickname">Userhak</span>
-                            <span class="score-id">#331002</span>
-                        </div>
-                        <div class="leaderboard-item">
-                            <span class="rank">10.</span>
-                            <span class="nickname">Kastom</span>
-                            <span class="score-id">#272923</span>
-                        </div>
-                    </div>
-                </div>
+                <h1>Top Screen</h1>
             </section>
-
-            <!-- Друзья (Обновлённый экран) -->
+            <!-- FRIENDS SCREEN -->
             <section id="friends" class="screen">
-                <div class="friends-container">
-                    <h2 class="friends-title">ЗОВИ ДРУЗЕЙ</h2>
-                    <p class="friends-subtitle">
-                        СКИДЫВАЙ ДРУГУ ССЫЛКУ-ПРИГЛАШЕНИЕ И ПОЛУЧИ 20% ЕГО МОНЕТ
-                    </p>
-                    <div class="friends-list">
-                        <div class="friend-item">
-                            <span>1. Sigma_Moment</span>
-                            <span>+216 VITS</span>
-                        </div>
-                        <div class="friend-item">
-                            <span>2. Gef</span>
-                            <span>+225 VITS</span>
-                        </div>
-                        <div class="friend-item">
-                            <span>3. LaLaLaLa</span>
-                            <span>+189 VITS</span>
-                        </div>
-                        <div class="friend-item">
-                            <span>4. Rufi</span>
-                            <span>+210 VITS</span>
-                        </div>
-                        <div class="friend-item">
-                            <span>5. Hary</span>
-                            <span>+225 VITS</span>
-                        </div>
-                        <div class="friend-item">
-                            <span>6. Durov</span>
-                            <span>+225 VITS</span>
-                        </div>
-                        <div class="friend-item">
-                            <span>7. Smas</span>
-                            <span>+204 VITS</span>
-                        </div>
-                        <div class="friend-item">
-                            <span>8. Light</span>
-                            <span>+225 VITS</span>
-                        </div>
-                        <div class="friend-item">
-                            <span>9. Userhak</span>
-                            <span>+225 VITS</span>
-                        </div>
-                        <div class="friend-item">
-                            <span>10. Kustom</span>
-                            <span>+225 VITS</span>
-                        </div>
-                    </div>
-                    <button class="referral-button">Реферальная ссылка</button>
-                </div>
+                <h1>Friends Screen</h1>
             </section>
-
-            <!-- ЗАДАНИЯ -->
+            <!-- TASKS SCREEN -->
             <section id="tasks" class="screen">
-                <!-- Заголовок и подзаголовок (расположенные вверху) -->
-                <div class="tasks-header">
-                    <h1>ЗАДАНИЯ</h1>
-                    <p>ВЫПОЛНЯЙТЕ ЗАДАНИЯ ЗА ВОЗНАГРАЖДЕНИЯ</p>
-                </div>
-                <!-- Контейнер для вкладок и содержимого -->
-                <div class="tasks-body">
-                    <!-- Вкладки фиксированы -->
-                    <div class="tasks-tabs">
-                        <button class="tab-button active-tab" data-tab="our-tasks">Наши задания</button>
-                        <button class="tab-button" data-tab="partners">Партнеры</button>
-                    </div>
-                    <div class="tasks-content-wrapper">
-                        <!-- Содержимое вкладок -->
-                        <div class="tasks-content">
-                            <!-- Панель "Наши задания" -->
-                            <div id="our-tasks" class="tab-panel active">
-                                <div class="task-list">
-                                    <div class="task-item">
-                                        <img src="https://i.ibb.co/21WrWXSt/image.png" alt="Telegram" class="task-icon">
-                                        <div class="task-info">
-                                            <p class="task-title">Подпишись на канал</p>
-                                            <p class="task-reward">+1,000 VITS</p>
-                                        </div>
-                                        <button class="task-open-btn">Открыть</button>
-                                    </div>
-                                    <div class="task-item">
-                                        <img src="https://i.ibb.co/ycCrp4jC/image.png" alt="Telegram" class="task-icon">
-                                        <div class="task-info">
-                                            <p class="task-title">Подпишись на канал</p>
-                                            <p class="task-reward">+2,000 VITS</p>
-                                        </div>
-                                        <button class="task-open-btn">Открыть</button>
-                                    </div>
-                                    <div class="task-item">
-                                        <img src="https://i.ibb.co/1JLGFS6v/image.png" alt="Telegram" class="task-icon">
-                                        <div class="task-info">
-                                            <p class="task-title">Пригласи 10 человек</p>
-                                            <p class="task-reward">+3,000 VITS</p>
-                                        </div>
-                                        <button class="task-open-btn">Открыть</button>
-                                    </div>
-                                    <div class="task-item">
-                                        <img src="https://i.ibb.co/TDxwq2rS/image.png" alt="Telegram" class="task-icon">
-                                        <div class="task-info">
-                                            <p class="task-title">Подключи кошелек</p>
-                                            <p class="task-reward">+3,000 VITS</p>
-                                        </div>
-                                        <button class="task-open-btn">Открыть</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Панель "Партнеры" -->
-                            <div id="partners" class="tab-panel">
-                                <div class="task-list">
-                                    <div class="task-item">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s"
-                                            alt="Telegram" class="task-icon">
-                                        <div class="task-info">
-                                            <p class="task-title">Партнёрское задание 1</p>
-                                            <p class="task-reward">+1,500 VITS</p>
-                                        </div>
-                                        <button class="task-open-btn">Открыть</button>
-                                    </div>
-                                    <div class="task-item">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s"
-                                            alt="Telegram" class="task-icon">
-                                        <div class="task-info">
-                                            <p class="task-title">Партнёрское задание 2</p>
-                                            <p class="task-reward">+2,500 VITS</p>
-                                        </div>
-                                        <button class="task-open-btn">Открыть</button>
-                                    </div>
-                                    <div class="task-item">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCodCp-cYwcl3YZM49XsRf7VAmUnvJ_y21NQ&s"
-                                            alt="Telegram" class="task-icon">
-                                        <div class="task-info">
-                                            <p class="task-title">Партнёрское задание 1</p>
-                                            <p class="task-reward">+1,500 VITS</p>
-                                        </div>
-                                        <button class="task-open-btn">Открыть</button>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div> <!-- /.tasks-content -->
-                </div> <!-- /.tasks-body -->
+                <h1>Home Screen</h1>
             </section>
-        </main>
-
-        <!-- Нижняя навигация -->
         <nav class="bottom-nav">
             <button data-target="home" class="active">
                 <div class="nav-icon">
@@ -821,53 +227,30 @@
     </div>
 
     <script>
-        // ----- ПЕРЕКЛЮЧЕНИЕ ОСНОВНЫХ ЭКРАНОВ (HOME, TOP, FRIENDS, TASKS) -----
+        // Переключение экранов
         const navButtons = document.querySelectorAll('.bottom-nav button');
         const screens = document.querySelectorAll('.screen');
-
         function setActiveScreen(button) {
             navButtons.forEach(btn => {
                 btn.classList.remove('active');
                 const img = btn.querySelector('.nav-icon img');
                 img.src = img.dataset.default;
             });
-
             button.classList.add('active');
             const img = button.querySelector('.nav-icon img');
             img.src = img.dataset.active;
-
             const targetId = button.getAttribute('data-target');
             screens.forEach(screen => screen.classList.remove('active'));
             document.getElementById(targetId).classList.add('active');
         }
-
         document.addEventListener("DOMContentLoaded", () => {
             const defaultButton = document.querySelector('.bottom-nav button.active');
-            if (defaultButton) {
-                setActiveScreen(defaultButton);
-            }
+            if (defaultButton) setActiveScreen(defaultButton);
         });
-
         navButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                setActiveScreen(button);
-            });
+            button.addEventListener('click', () => setActiveScreen(button));
         });
 
-        // ----- ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК "НАШИ ЗАДАНИЯ" / "ПАРТНЕРЫ" -----
-        const tabButtons = document.querySelectorAll('.tasks-tabs .tab-button');
-        const tabPanels = document.querySelectorAll('.tab-panel');
-
-        tabButtons.forEach(btn => {
-            btn.addEventListener('click', () => {
-                tabButtons.forEach(b => b.classList.remove('active-tab'));
-                btn.classList.add('active-tab');
-
-                const tabId = btn.dataset.tab;
-                tabPanels.forEach(panel => panel.classList.remove('active'));
-                document.getElementById(tabId).classList.add('active');
-            });
-        });
     </script>
 </body>
 
